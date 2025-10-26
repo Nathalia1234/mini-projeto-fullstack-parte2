@@ -31,7 +31,46 @@ Todas as operações CRUD são protegidas e vinculadas ao **usuário autenticado
 
 ## 🟣 Estrutura de Pastas
 
-![alt text](./src/img/image-1.png)
+Abaixo está a organização dos arquivos e diretórios principais do projeto:
+
+```
+mini-projeto-fullstack-parte2/
+├── node_modules
+├── requests/
+│   └── requests.yaml
+│
+├── src/
+│   ├── controllers/
+│   │   ├── note.controller.js
+│   │   └── user.controller.js
+│   │
+│   ├── database/
+│   │   └── connect.js
+│   │
+│   ├── middlewares/
+│   │   ├── logger.js
+│   │   └── verifyToken.js
+│   │
+│   ├── models/
+│   │   ├── note.model.js
+│   │   └── user.model.js
+│   │
+│   ├── routes/
+│   │   ├── note.routes.js
+│   │   └── user.routes.js
+│   │
+│   ├── services/
+│   │   ├── note.service.js
+│   │   └── user.service.js
+│
+├── .env
+├── .gitignore
+├── package-lock.json
+├── package.json
+├── README.md
+└── server.js
+```
+> **A estrutura segue o padrão MVC (Model-View-Controller)**, separando lógica de controle, regras de negócio, modelos de dados e rotas.
 
 ---
 
@@ -87,12 +126,20 @@ Foram criados dois ambientes no Insomnia:
 
 Em ambos:
 
-Header:  ```Authorization: Bearer {{token_local}}```
+```bash
+Header:  Authorization: Bearer {{token_local}}
+```
 
 
-A pasta `requests/` contém todas as requisições (local e produção).
+A pasta `requests/` contém todas as requisições configuradas no Insomnia, incluindo rotas de **registro, login, criação, atualização, exclusão e listagem** de notas, tanto em ambiente local quanto em produção.
 
-![alt text](./src/img/image.png)
+**Estrutura:**
+```
+requests/
+└── requests.yaml
+```
+
+O arquivo `requests.yaml` pode ser importado diretamente no Insomnia para reproduzir todos os testes realizados:
 
 - [📄 Download requests.yaml](./requests/requests.yaml)
 
@@ -133,6 +180,6 @@ Um vídeo um pouco longo (até 6 minutos) foi gravado demonstrando:
 - Rotas CRUD protegidas com JWT.
 
 
-🔗 [Assista ao vídeo de demonstração](https://drive.google.com/file/d/1cppMxoF5ssPuWUsoh2chLur9WgIsU78k/view?usp=sharing)
+👉 [Clique aqui para assistir no Google Drive](https://drive.google.com/file/d/1cppMxoF5ssPuWUsoh2chLur9WgIsU78k/view?usp=sharing)
 
 ---
