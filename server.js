@@ -21,7 +21,16 @@ const app = express();
 // -----------------------------
 // Middlewares globais
 // -----------------------------
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://frontend-mongodb.vercel.app",
+    "https://frontend-postgresql.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(express.json());
 
 
