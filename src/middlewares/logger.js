@@ -2,7 +2,7 @@
 // Logger colorido com controle de ambiente
 // -------------------------------
 
-const isDev = process.env.NODE_ENV !== "production"; // exibe logs detalhados apenas em dev
+const isDev = process.env.NODE_ENV !== "production"; 
 
 export const logger = {
   logInfo: (message) => {
@@ -16,5 +16,11 @@ export const logger = {
   },
   logSuccess: (message) => {
     console.log(`\x1b[32m🟢 SUCESSO:\x1b[0m ${message}`);
+  },
+  //  método apenas para depuração interna
+  debug: (message) => {
+    if (isDev && process.env.SHOW_DEBUG === "true") {
+      console.log(`\x1b[90m⚙ DEBUG:\x1b[0m ${message}`);
+    }
   },
 };

@@ -50,7 +50,7 @@ export  async function getAllNotes(req, res) {
       filter.title = { $regex: req.query.title, $options: "i" };
     }
 
-    logger.logInfo(`🔍 Filtro usado: ${JSON.stringify(filter)}`);
+    logger.debug(`🔍 Filtro usado: ${JSON.stringify(filter)}`);
 
     // Busca notas no MongoDB
     const notes = await Note.find(filter);
@@ -58,7 +58,7 @@ export  async function getAllNotes(req, res) {
     if (notes.length > 0) {
       logger.logInfo(`🟢 Usuário ${req.user.id} encontrou ${notes.length} notas.`);
     } else {
-      logger.logInfo(`🟡 Usuário ${req.user.id} não possui notas com o filtro aplicado.`);
+      logger.debug(`🟡 Usuário ${req.user.id} não possui notas com o filtro aplicado.`);
     }
 
     return res.status(200).json(notes);

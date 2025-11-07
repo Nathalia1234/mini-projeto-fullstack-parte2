@@ -20,7 +20,7 @@ export function verifyToken(req, res, next) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
 
-    logger.logInfo(`🟢 Token válido para o usuário ID: ${decoded.id}`);
+    logger.debug(`🟢 Token válido para o usuário ID: ${decoded.id}`);
     next();
   } catch (error) {
     logger.logError(`Token inválido ou expirado: ${error.message}`);
