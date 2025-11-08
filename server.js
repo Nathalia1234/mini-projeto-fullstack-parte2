@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { swaggerDocs } from "./swagger.config.js";
 
 import { connectDatabase } from "./src/database/connect.js";
 import userRoutes from "./src/routes/user.routes.js";
@@ -66,3 +67,4 @@ app.listen(PORT, () => {
 // Export do app — necessário pro Vercel
 // -----------------------------
 export default app;
+swaggerDocs(app);
