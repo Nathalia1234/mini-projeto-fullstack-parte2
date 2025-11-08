@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+
 import { swaggerDocs } from "./swagger.config.js";
 
 import { connectDatabase } from "./src/database/connect.js";
@@ -43,6 +44,11 @@ app.use(express.json());
 connectDatabase();
 
 // -----------------------------
+// Inicializar o Swagger
+// -----------------------------
+swaggerDocs(app);
+
+// -----------------------------
 // Rotas principais
 // -----------------------------
 app.use("/api", userRoutes);
@@ -54,10 +60,7 @@ app.use("/api/notes", noteRoutes);
 app.get("/", (req, res) => {
   res.send("✅ API está rodando com sucesso!");
 });
-// -----------------------------
-// Inicializar o Swagger
-// -----------------------------
-swaggerDocs(app);
+
 
 // -----------------------------
 // Porta de execução

@@ -1,55 +1,62 @@
-import swaggerJSDoc from "swagger-jsdoc";
+// swagger.config.js
 import swaggerUi from "swagger-ui-express";
-import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import swaggerJSDoc from "swagger-jsdoc";
 
 export const swaggerDocs = (app) => {
-    const options = {
-        definition: {
-            openapi: "3.0.0",
-            info: {
-                title: "NotesApp API - MongoDB",
-                version: "1.0.0",
-                description: "API responsável pelo cadastro de usuários, login e gerenciamento de notas pessoais no projeto NotesApp.",
-            },
-            servers: [
-                {
-                    url: "https://mini-projeto-fullstack-parte2.vercel.app",
-                    description: "Ambiente de produção",
-                },
-                {
-                    url: "http://localhost:3000",
-                    description: "Ambiente local",
-                },
-            ],
+  const options = {
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: "NotesApp API - MongoDB",
+        version: "1.0.0",
+        description:
+          "API responsável pelo cadastro de usuários, login e gerenciamento de notas pessoais no projeto NotesApp.",
+      },
+      servers: [
+        { url: "http://localhost:3000", description: "Ambiente local" },
+        {
+          url: "https://mini-projeto-fullstack-parte2.vercel.app",
+          description: "Ambiente de produção",
         },
-        apis: ["./src/routes/*.js"],
-    };
-    const swaggerSpec = swaggerJSDoc(options);
+      ],
+    },
+    apis: ["./src/routes/*.js"],
+  };
 
-    // Servir arquivos estáticos de forma explícita (corrige erro na Vercel)
-  app.use("/swagger-ui", express.static(path.join(__dirname, "../node_modules/swagger-ui-dist")));
+  const swaggerSpec = swaggerJSDoc(options);
 
-  // Endpoint /docs funcionando em local e produção
-  app.use(
-    "/docs",
-    swaggerUi.serveFiles(swaggerSpec, { swaggerOptions: { url: "/swagger.json" } }),
-    swaggerUi.setup(swaggerSpec, {
-      explorer: true,
-      customCss: ".swagger-ui .topbar { display: none }",
-    })
-  );
+  // Versão com assets servidos via CDN (funciona no Vercel)
+  const swaggerHtml = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>NotesApp API - Swagger</title>
+        <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css" />
+      </head>
+      <body>
+        <div id="swagger-ui"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js"></script>
+        <script>
+          window.onload = () => {
+            window.ui = SwaggerUIBundle({
+              spec: ${JSON.stringify(swaggerSpec)},
+              dom_id: '#swagger-ui',
+              presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+              layout: "BaseLayout"
+            });
+          };
+        </script>
+      </body>
+    </html>
+  `;
 
-  // JSON puro da especificação
-  app.get("/swagger.json", (req, res) => {
-    res.setHeader("Content-Type", "application/json");
-    res.send(swaggerSpec);
+  app.get("/docs", (req, res) => {
+    res.setHeader("Content-Type", "text/html");
+    res.send(swaggerHtml);
   });
 
   console.log("✅ Swagger disponível em /docs");
 };
-        
+export default swaggerUi;
