@@ -5,26 +5,43 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "NotesApp API",
+      title: "NotesApp API - MongoDB",
       version: "1.0.0",
-      description: "Documentação da API MongoDB - NotesApp",
-    },
+        description: "API responsável pelo cadastro de usuários, login e gerenciamento de notas pessoais no projeto NotesApp.",
+        },
     servers: [
       {
-        url: "https://notes.nathaliaohana.dev",
-        description: "Produção",
+        url: "https://mini-projeto-fullstack-parte2.vercel.app",
+        description: "Ambiente de produção",
       },
       {
         url: "http://localhost:3000",
-        description: "Local",
+        description: "Ambiente local",
       },
-    ],
-  },
+        ],
+          components: {
+                securitySchemes: {
+                    bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT",
+                },
+            },
+        },
+    },
   apis: ["./src/routes/*.js"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
 
 export function swaggerDocs(app) {
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    explorer: true,
+    customCss: ".swagger-ui .topbar { display: none }"
+  })
+);
+    console.log("✅  Swagger disponível em /docs");
 }

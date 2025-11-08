@@ -54,6 +54,10 @@ app.use("/api/notes", noteRoutes);
 app.get("/", (req, res) => {
   res.send("✅ API está rodando com sucesso!");
 });
+// -----------------------------
+// Rota do Swagger
+// -----------------------------
+swaggerDocs(app);
 
 // -----------------------------
 // Porta de execução
@@ -67,4 +71,3 @@ app.listen(PORT, () => {
 // Export do app — necessário pro Vercel
 // -----------------------------
 export default app;
-swaggerDocs(app);

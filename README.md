@@ -15,6 +15,16 @@ Desenvolver uma **feature autenticada** que permita o gerenciamento de recursos 
 Todas as operações CRUD são protegidas e vinculadas ao **usuário autenticado**, impedindo acesso, alteração ou exclusão de dados de outros usuários.
 
 ---
+## 🟣 Documentação Swagger
+
+A API NotesApp está documentada com **Swagger UI**, disponível em:
+
+- **Ambiente Local**: http://localhost:3000/docs
+- **Ambiente Produção**: https://mini-projeto-fullstack-parte2.vercel.app/docs
+
+A documentação contém exemplos de requisição e resposta para todas as rotas (cadastro, login e notas).
+
+--- 
 
 ## 🟣 Tecnologias Utilizadas
 
