@@ -15,15 +15,35 @@ Desenvolver uma **feature autenticada** que permita o gerenciamento de recursos 
 Todas as operações CRUD são protegidas e vinculadas ao **usuário autenticado**, impedindo acesso, alteração ou exclusão de dados de outros usuários.
 
 ---
-## 🟣 Documentação Swagger
+## 🟣 Documentação da API com Swagger
 
-A API NotesApp está documentada com **Swagger UI**, disponível em:
+A API **NotesApp - MongoDB** possui documentação interativa desenvolvida com **Swagger UI** e **Swagger JSDoc**, permitindo visualizar e testar todos os endpoints da aplicação de forma prática e intuitiva.
+
+### Configuração
+
+- Dependências utilizadas:
+```bash
+  npm install swagger-ui-express swagger-jsdoc
+```
+- Arquivo de configuração: `swagger.config.js`
+- Endpoint da documentação: `/docs`
+
+### Acesso à Documentação
 
 - **Ambiente Local**: http://localhost:3000/docs
-- **Ambiente Produção**: https://mini-projeto-fullstack-parte2.vercel.app/docs
+- **Ambiente Produção (Vercel)**: https://mini-projeto-fullstack-parte2.vercel.app/docs
 
-A documentação contém exemplos de requisição e resposta para todas as rotas (cadastro, login e notas).
+### Sobre o Swagger
 
+A interface lista todos os endpoints organizados em dois grupos:
+
+- Notas → criação, leitura, atualização e exclusão de notas.
+- Usuários → cadastro, login e informações do usuário autenticado.
+
+A configuração utiliza **assets CDN do Swagger UI** para garantir compatibilidade com o ambiente serverless da Vercel, evitando erros de carregamento dos scripts nativos.
+
+> Durante o deploy na Vercel, a documentação padrão do Swagger (que serve arquivos locais) resultava em erro **Unexpected token '<'.**
+> Para corrigir esse erro, foi implementada uma versão embedada via CDN, permitindo que o Swagger funcione corretamente tanto no ambiente local quanto em  produção.
 --- 
 
 ## 🟣 Tecnologias Utilizadas
