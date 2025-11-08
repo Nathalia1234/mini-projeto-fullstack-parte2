@@ -55,7 +55,7 @@ app.get("/", (req, res) => {
   res.send("✅ API está rodando com sucesso!");
 });
 // -----------------------------
-// Rota do Swagger
+// Inicializar o Swagger
 // -----------------------------
 swaggerDocs(app);
 
